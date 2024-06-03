@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:us_soccer_flutter/const/environmentals.dart';
@@ -37,3 +38,17 @@ final stadiumProvider =
     StateNotifierProvider.autoDispose<StadiumProvider, List<Stadium>>(
   (ref) => StadiumProvider(ref, []),
 );
+
+class HelloWorld extends StatefulWidget {
+  const HelloWorld({super.key});
+
+  @override
+  State<HelloWorld> createState() => _HelloWorldState();
+}
+
+class _HelloWorldState extends State<HelloWorld> {
+  @override
+  Widget build(BuildContext context) {
+    return const Placeholder();
+  }
+}

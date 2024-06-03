@@ -2,6 +2,11 @@
 
 A new Flutter project.
 
+# Web without https endpoint
+```
+flutter run -d chrome --web-browser-flag "--disable-web-security"
+```
+
 ## Getting Started
 
 This project is a starting point for a Flutter application.

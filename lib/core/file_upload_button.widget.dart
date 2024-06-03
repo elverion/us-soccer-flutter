@@ -3,14 +3,14 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-class AddStadium extends StatefulWidget {
-  const AddStadium({super.key});
+class FileUploadButton extends StatefulWidget {
+  const FileUploadButton({super.key});
 
   @override
-  State<AddStadium> createState() => _AddStadiumState();
+  State<FileUploadButton> createState() => _FileUploadButtonState();
 }
 
-class _AddStadiumState extends State<AddStadium> {
+class _FileUploadButtonState extends State<FileUploadButton> {
   final _scaffoldMessengerKey = GlobalKey<ScaffoldMessengerState>();
   String? _fileName;
   FilePickerResult? _localFile;
@@ -71,41 +71,31 @@ class _AddStadiumState extends State<AddStadium> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Add Stadiums'),
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-      ),
-      body: Center(
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              ElevatedButton.icon(
-                icon: const Icon(Icons.description),
-                label: const Text('UPLOAD FILE'),
-                onPressed: () => _pickFiles(),
-              ),
-              _localFile != null
-                  ? Container(
-                      padding: const EdgeInsets.symmetric(
-                        vertical: 20.0,
-                      ),
-                      child: Card(
-                        child: Column(
-                          children: [
-                            Text('${_localFile?.files.single.name}'),
-                            kIsWeb
-                                ? const SizedBox()
-                                : Text('${_localFile?.files.single.path}'),
-                          ],
-                        ),
-                      ),
-                    )
-                  : const SizedBox(),
-            ],
-          ),
+    return Column(
+      children: [
+        ElevatedButton.icon(
+          icon: const Icon(Icons.description),
+          label: const Text('UPLOAD FILE'),
+          onPressed: () => _pickFiles(),
         ),
-      ),
+        _localFile != null
+            ? Container(
+                padding: const EdgeInsets.symmetric(
+                  vertical: 20.0,
+                ),
+                child: Card(
+                  child: Column(
+                    children: [
+                      Text('${_localFile?.files.single.name}'),
+                      kIsWeb
+                          ? const SizedBox()
+                          : Text('${_localFile?.files.single.path}'),
+                    ],
+                  ),
+                ),
+              )
+            : const SizedBox(),
+      ],
     );
   }
 }
