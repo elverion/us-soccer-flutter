@@ -14,7 +14,8 @@ class Stadiums extends ConsumerWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Stadiums'),
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+        backgroundColor: Theme.of(context).colorScheme.primary,
+        foregroundColor: Theme.of(context).colorScheme.onPrimary,
       ),
       body: Center(
         child: stadiums.isNotEmpty

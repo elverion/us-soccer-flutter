@@ -81,7 +81,8 @@ class _AddStadiumState extends ConsumerState<AddStadium> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Add Stadiums'),
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+        backgroundColor: Theme.of(context).colorScheme.primary,
+        foregroundColor: Theme.of(context).colorScheme.onPrimary,
       ),
       body: Center(
         child: SingleChildScrollView(

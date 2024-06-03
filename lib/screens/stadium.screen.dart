@@ -28,7 +28,8 @@ class _StadiumState extends ConsumerState<Stadium> {
     return Scaffold(
       appBar: AppBar(
         title: Text(stadium?.stadium ?? 'Stadium not Found'),
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+        backgroundColor: Theme.of(context).colorScheme.primary,
+        foregroundColor: Theme.of(context).colorScheme.onPrimary,
       ),
       body: Center(
         child: stadium == null

@@ -45,7 +45,13 @@ class MyApp extends ConsumerWidget {
       child: MaterialApp.router(
         routerConfig: applicationRouter,
         theme: ThemeData(
-          colorScheme: ColorScheme.fromSeed(seedColor: Colors.lightBlue),
+          primaryColor: const Color.fromARGB(255, 33, 40, 68),
+          secondaryHeaderColor: const Color.fromARGB(255, 179, 25, 66),
+          colorScheme: ColorScheme.fromSeed(
+            seedColor: const Color.fromARGB(255, 33, 40, 68),
+            primary: const Color.fromARGB(255, 33, 40, 68),
+            secondary: const Color.fromARGB(255, 179, 25, 66),
+          ),
           useMaterial3: true,
         ),
       ),
