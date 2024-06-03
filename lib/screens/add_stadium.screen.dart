@@ -4,16 +4,18 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:us_soccer_flutter/modules/stadium/models/csv_file.model.dart';
+import 'package:us_soccer_flutter/modules/stadium/providers/stadium.provider.dart';
 
-class AddStadium extends StatefulWidget {
+class AddStadium extends ConsumerStatefulWidget {
   const AddStadium({super.key});
 
   @override
-  State<AddStadium> createState() => _AddStadiumState();
+  ConsumerState<AddStadium> createState() => _AddStadiumState();
 }
 
-class _AddStadiumState extends State<AddStadium> {
+class _AddStadiumState extends ConsumerState<AddStadium> {
   final _scaffoldMessengerKey = GlobalKey<ScaffoldMessengerState>();
   CSVFile? csvFile;
   FilePickerResult? localFile;
@@ -117,7 +119,10 @@ class _AddStadiumState extends State<AddStadium> {
                     )
                   : const SizedBox(height: 100),
               ElevatedButton(
-                onPressed: () => {},
+                onPressed: () => {
+                  if (csvFile != null)
+                    ref.read(stadiumProvider.notifier).uploadCSV(csvFile!)
+                },
                 child: const Text('Submit'),
               ),
             ],

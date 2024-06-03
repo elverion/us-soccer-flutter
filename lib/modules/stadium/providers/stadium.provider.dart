@@ -1,5 +1,8 @@
 import 'dart:convert';
 import 'dart:io';
+import 'dart:typed_data';
+import 'package:flutter/foundation.dart';
+import 'package:http_parser/http_parser.dart';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -34,29 +37,26 @@ class StadiumProvider extends StateNotifier<List<Stadium>> {
   }
 
   Future<void> uploadCSV(CSVFile file) async {
-    var request =
-        http.MultipartRequest("POST", Uri.parse('$serverURL/api/stadium'));
-    request.fields['user'] = 'blah';
+    var request = http.MultipartRequest(
+      "POST",
+      Uri.parse('$serverURL/api/stadium'),
+    );
+
+    Uint8List dataBytes = file.bytes ?? await file.file!.readAsBytes();
+
     request.files.add(
       http.MultipartFile.fromBytes(
-        'file',
-        await file.file!.readAsBytes(),
-        contentType: MediaType(),
+        'csv',
+        // await file.file!.readAsBytes(),
+        dataBytes,
+        contentType: MediaType('application', 'csv'),
       ),
     );
 
     request.send().then((response) {
       if (response.statusCode == 200) print("Uploaded!");
     });
-
-//     FormData formData = new FormData.from({
-//    "name": "wendux",
-//    "file1": new UploadFileInfo(new File("./upload.jpg"), "upload1.jpg")
-// });
-// response = await dio.post("/info", data: formData)
   }
-
-  // TODO: Upload file https://pub.dev/packages/file_picker
 }
 
 final stadiumProvider =
