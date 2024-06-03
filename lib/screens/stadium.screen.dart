@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:us_soccer_flutter/modules/stadium/providers/stadium.provider.dart';
 import 'package:us_soccer_flutter/modules/stadium/widgets/stadium_card.widget.dart';
+import 'package:us_soccer_flutter/modules/weather/models/weather.model.dart';
 import 'package:us_soccer_flutter/modules/weather/providers/weather.provider.dart';
 import 'package:us_soccer_flutter/modules/weather/widgets/weather_card.widget.dart';
 
@@ -22,14 +23,7 @@ class _StadiumState extends ConsumerState<Stadium> {
     final stadium = stadiumId == null
         ? null
         : ref.read(stadiumProvider.notifier).getStadium(stadiumId);
-
-    if (stadiumId == null) {
-      ref.read(weatherProvider.notifier).fetchWeather(stadiumId!);
-    }
-
     final weather = ref.watch(weatherProvider);
-
-    print('[Weather] ${weather.temp}');
 
     return Scaffold(
       appBar: AppBar(
@@ -44,7 +38,7 @@ class _StadiumState extends ConsumerState<Stadium> {
                   StadiumCard(stadium: stadium),
                   WeatherCard(
                     weather: weather,
-                  )
+                  ),
                 ],
               ),
       ),

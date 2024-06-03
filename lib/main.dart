@@ -1,14 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:us_soccer_flutter/modules/location/models/location.model.dart';
-import 'package:us_soccer_flutter/modules/stadium/models/stadium.model.dart';
 import 'package:us_soccer_flutter/modules/stadium/providers/stadium.provider.dart';
+import 'package:us_soccer_flutter/modules/weather/providers/weather.provider.dart';
 import 'package:us_soccer_flutter/routing/router.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  // runApp(const MyApp());
   runApp(
     ProviderScope(
       overrides: [
@@ -32,6 +30,7 @@ class _GlobalWrapper extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     ref.watch(stadiumProvider);
+    ref.watch(weatherProvider);
 
     return child;
   }

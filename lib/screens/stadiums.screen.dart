@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
 import 'package:us_soccer_flutter/modules/stadium/providers/stadium.provider.dart';
 
 import '../modules/stadium/widgets/stadium_list_tile.widget.dart';
