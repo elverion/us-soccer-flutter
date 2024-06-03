@@ -1,7 +1,23 @@
+import 'dart:io';
+
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+
+class CSVFile {
+  final String name;
+  final String? path;
+  final Uint8List? bytes;
+  final File? file;
+
+  CSVFile({
+    required this.name,
+    this.path,
+    this.bytes,
+    this.file,
+  });
+}
 
 class AddStadium extends StatefulWidget {
   const AddStadium({super.key});
@@ -12,21 +28,36 @@ class AddStadium extends StatefulWidget {
 
 class _AddStadiumState extends State<AddStadium> {
   final _scaffoldMessengerKey = GlobalKey<ScaffoldMessengerState>();
-  String? _fileName;
-  FilePickerResult? _localFile;
-  String? _directoryPath;
-  bool _isLoading = false;
-  bool _userAborted = false;
+  CSVFile? csvFile;
+  FilePickerResult? localFile;
+  bool isLoading = false;
 
   void _pickFiles() async {
     _resetState();
     try {
-      _directoryPath = null;
-      _localFile = await FilePicker.platform.pickFiles(
+      FilePickerResult? result = await FilePicker.platform.pickFiles(
         type: FileType.custom,
-        onFileLoading: (FilePickerStatus status) => print(status),
         allowedExtensions: ['csv'],
       );
+
+      localFile = result;
+
+      if (result != null) {
+        if (kIsWeb) {
+          setState(() {
+            csvFile = CSVFile(
+              name: result.files.single.name,
+              bytes: result.files.single.bytes,
+            );
+          });
+        } else {
+          csvFile = CSVFile(
+            name: result.files.single.name,
+            path: result.files.single.path,
+            file: File(result.files.single.path!),
+          );
+        }
+      }
     } on PlatformException catch (e) {
       _logException('Unsupported operation $e');
     } catch (e) {
@@ -34,15 +65,12 @@ class _AddStadiumState extends State<AddStadium> {
     }
     if (!mounted) return;
     setState(() {
-      _isLoading = false;
-      _fileName =
-          _localFile != null ? _localFile?.files.single.name.toString() : '...';
-      _userAborted = _localFile == null;
+      isLoading = false;
     });
   }
 
   void _logException(String message) {
-    // print(message);
+    debugPrint(message);
     _scaffoldMessengerKey.currentState?.hideCurrentSnackBar();
     _scaffoldMessengerKey.currentState?.showSnackBar(
       SnackBar(
@@ -61,11 +89,8 @@ class _AddStadiumState extends State<AddStadium> {
       return;
     }
     setState(() {
-      _isLoading = true;
-      _directoryPath = null;
-      _fileName = null;
-      _localFile = null;
-      _userAborted = false;
+      isLoading = true;
+      localFile = null;
     });
   }
 
@@ -80,28 +105,41 @@ class _AddStadiumState extends State<AddStadium> {
         child: SingleChildScrollView(
           child: Column(
             children: [
-              ElevatedButton.icon(
-                icon: const Icon(Icons.description),
-                label: const Text('UPLOAD FILE'),
-                onPressed: () => _pickFiles(),
+              Padding(
+                padding: const EdgeInsets.only(bottom: 16),
+                child: ElevatedButton.icon(
+                  icon: const Icon(Icons.description),
+                  label: const Text('Select CSV'),
+                  onPressed: () => _pickFiles(),
+                ),
               ),
-              _localFile != null
+              localFile != null
                   ? Container(
+                      height: 100,
                       padding: const EdgeInsets.symmetric(
                         vertical: 20.0,
                       ),
-                      child: Card(
-                        child: Column(
-                          children: [
-                            Text('${_localFile?.files.single.name}'),
-                            kIsWeb
-                                ? const SizedBox()
-                                : Text('${_localFile?.files.single.path}'),
-                          ],
+                      child: SingleChildScrollView(
+                        child: Card(
+                          child: Column(
+                            children: [
+                              Text('${localFile?.files.single.name}'),
+                              kIsWeb
+                                  ? const SizedBox()
+                                  : Text('${localFile?.files.single.path}'),
+                              // kIsWeb
+                              //     ? Text('${localFile?.files.single.bytes}')
+                              //     : const SizedBox(),
+                            ],
+                          ),
                         ),
                       ),
                     )
-                  : const SizedBox(),
+                  : const SizedBox(height: 100),
+              ElevatedButton(
+                onPressed: () => {},
+                child: const Text('Submit'),
+              ),
             ],
           ),
         ),
