@@ -4,20 +4,7 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-
-class CSVFile {
-  final String name;
-  final String? path;
-  final Uint8List? bytes;
-  final File? file;
-
-  CSVFile({
-    required this.name,
-    this.path,
-    this.bytes,
-    this.file,
-  });
-}
+import 'package:us_soccer_flutter/modules/stadium/models/csv_file.model.dart';
 
 class AddStadium extends StatefulWidget {
   const AddStadium({super.key});
@@ -43,20 +30,13 @@ class _AddStadiumState extends State<AddStadium> {
       localFile = result;
 
       if (result != null) {
-        if (kIsWeb) {
-          setState(() {
-            csvFile = CSVFile(
-              name: result.files.single.name,
-              bytes: result.files.single.bytes,
-            );
-          });
-        } else {
-          csvFile = CSVFile(
-            name: result.files.single.name,
-            path: result.files.single.path,
-            file: File(result.files.single.path!),
-          );
-        }
+        csvFile = CSVFile(
+          name: result.files.single.name,
+          size: result.files.single.size,
+          bytes: kIsWeb ? result.files.single.bytes : null,
+          path: kIsWeb ? null : result.files.single.path,
+          file: kIsWeb ? null : File(result.files.single.path!),
+        );
       }
     } on PlatformException catch (e) {
       _logException('Unsupported operation $e');
