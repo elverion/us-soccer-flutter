@@ -32,10 +32,8 @@ class _FileUploadButtonState extends State<FileUploadButton> {
 
       _localFile = result;
 
-      if (result != null && result.files.single.path != null) {
+      if (result != null && !kIsWeb) {
         File file = File(result.files.single.path!);
-      } else {
-        print("No file selected");
       }
     } on PlatformException catch (e) {
       _logException('Unsupported operation $e');
