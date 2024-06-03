@@ -39,7 +39,7 @@ class StadiumProvider extends StateNotifier<List<Stadium>> {
   Future<void> uploadCSV(CSVFile file) async {
     var request = http.MultipartRequest(
       "POST",
-      Uri.parse('$serverURL/api/stadium'),
+      Uri.parse('$serverURL/api/stadiums'),
     );
 
     Uint8List dataBytes = file.bytes ?? await file.file!.readAsBytes();
@@ -47,14 +47,14 @@ class StadiumProvider extends StateNotifier<List<Stadium>> {
     request.files.add(
       http.MultipartFile.fromBytes(
         'csv',
-        // await file.file!.readAsBytes(),
         dataBytes,
+        filename: file.name,
         contentType: MediaType('application', 'csv'),
       ),
     );
 
     request.send().then((response) {
-      if (response.statusCode == 200) print("Uploaded!");
+      if (response.statusCode == 200) fetchStadiums();
     });
   }
 }
