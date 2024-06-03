@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -22,11 +24,19 @@ class _FileUploadButtonState extends State<FileUploadButton> {
     _resetState();
     try {
       _directoryPath = null;
-      _localFile = await FilePicker.platform.pickFiles(
+      FilePickerResult? result = await FilePicker.platform.pickFiles(
         type: FileType.custom,
         onFileLoading: (FilePickerStatus status) => print(status),
         allowedExtensions: ['csv'],
       );
+
+      _localFile = result;
+
+      if (result != null && result.files.single.path != null) {
+        File file = File(result.files.single.path!);
+      } else {
+        print("No file selected");
+      }
     } on PlatformException catch (e) {
       _logException('Unsupported operation $e');
     } catch (e) {
