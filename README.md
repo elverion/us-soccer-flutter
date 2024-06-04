@@ -33,3 +33,20 @@ To facilitate this, typically a script to parse the .env and apply to the comman
 
 ## Where are the unit tests?
 This application was constructed to showcase the functionality of the `elverion/us-soccer-go` repository. It was developed in reaction to software being developed. Because of this no clear planning was preformed defining any of the functionality. Some test's will now be written, this is not typical of our usual development cycle.
+
+## Example Screenshots
+### Linux
+![Home](./images/Screenshot%20from%202024-06-04%2011-46-11.png)
+![Add](./images/Screenshot%20from%202024-06-04%2011-47-00.png)
+![List Stadiums](./images/Screenshot%20from%202024-06-04%2011-47-09.png)
+![Stadium](./images/Screenshot%20from%202024-06-04%2011-47-15.png)
+### Android
+![Home](./images/Screenshot%20from%202024-06-04%2011-48-34.png)
+![Add](./images/Screenshot%20from%202024-06-04%2011-48-42.png)
+![List Stadiums](./images/Screenshot%20from%202024-06-04%2011-48-49.png)
+![Stadium](./images/Screenshot%20from%202024-06-04%2011-48-55.png)
+### Web
+![Home](./images/Screenshot%20from%202024-06-04%2011-50-02.png)
+![Add](./images//Screenshot%20from%202024-06-04%2011-50-09.png)
+![List Stadiums](./images/Screenshot%20from%202024-06-04%2011-50-15.png)
+![Stadium](./images/Screenshot%20from%202024-06-04%2011-50-21.png)
