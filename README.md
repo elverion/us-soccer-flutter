@@ -19,7 +19,7 @@ https://github.com/jokecamp/FootballData/blob/master/other/stadiums-with-GPS-coo
 
 ## Getting Started
 
-To get started install flutter `https://docs.flutter.dev/get-started/install?_gl=1*l0frce*_up*MQ..&gclid=Cj0KCQjw0_WyBhDMARIsAL1Vz8uXDij_vyuVljvkSMGVpd4TiZCCQbv1PUZ904NJoIBYw-YFJxz7ifwaAtruEALw_wcB&gclsrc=aw.ds`
+To get started install flutter [Flutter Install Instructions](https://docs.flutter.dev/get-started/install?_gl=1*l0frce*_up*MQ..&gclid=Cj0KCQjw0_WyBhDMARIsAL1Vz8uXDij_vyuVljvkSMGVpd4TiZCCQbv1PUZ904NJoIBYw-YFJxz7ifwaAtruEALw_wcB&gclsrc=aw.ds)
 
 ```
 flutter run
