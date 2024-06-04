@@ -31,4 +31,4 @@ Inherently we pass typical env variables to flutter during the build or run comm
 To facilitate this, typically a script to parse the .env and apply to the command would be written. As this is a demo we have opted to skip this step and simply store those variables in a file.
 
 ## Where are the unit tests?
-This application was constructed to showcase the functionality of the `elverion/us-soccer-go` repository. It was developed in reaction to software being developed. Because of this no clear planning was preformed defining any of the functionality. Some test's will now be written, this is not typical of our typical development cycle.
+This application was constructed to showcase the functionality of the `elverion/us-soccer-go` repository. It was developed in reaction to software being developed. Because of this no clear planning was preformed defining any of the functionality. Some test's will now be written, this is not typical of our usual development cycle.
