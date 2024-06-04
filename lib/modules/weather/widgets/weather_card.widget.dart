@@ -15,12 +15,31 @@ class WeatherCard extends StatelessWidget {
         ? null
         : WeatherIcon.getByCode(weather!.icon as String);
 
-    return Card(
+    return SizedBox(
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          icon != null ? Icon(icon.icon) : const SizedBox(),
-          Text('Temp: ${weather != null ? weather?.temp : '??'}'),
-          Text('Description: ${weather != null ? weather?.description : '??'}'),
+          Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(right: 16.0),
+                child: icon != null
+                    ? Icon(
+                        icon.icon,
+                        size: 100,
+                      )
+                    : const SizedBox(),
+              ),
+              Text(
+                '${weather != null ? weather?.temp : '??'}',
+                style: const TextStyle(fontSize: 50),
+              ),
+              const SizedBox(height: 40, child: Text('\u2103')),
+            ],
+          ),
+          Text('${weather != null ? weather?.description : '??'}'),
         ],
       ),
     );

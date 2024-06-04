@@ -1,19 +1,19 @@
 import 'dart:convert';
 
-import 'package:http/http.dart' as http;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:us_soccer_flutter/const/environmentals.dart';
+import 'package:us_soccer_flutter/api/api.dart';
 
 import '../models/weather.model.dart';
 
 class WeatherProvider extends StateNotifier<Weather> {
   final Ref ref;
+  final StadiumApi stadiumApi = StadiumApi();
 
   WeatherProvider(this.ref, Weather data) : super(data);
 
   Future<Weather> fetchWeather(String stadiumId) async {
-    final response =
-        await http.get(Uri.parse('$serverURL/api/weather/$stadiumId'));
+    state = Weather();
+    final response = await stadiumApi.getWeather(stadiumId);
 
     if (response.statusCode == 200) {
       final decodedResponse = jsonDecode(response.body);

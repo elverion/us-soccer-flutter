@@ -19,6 +19,7 @@ class Stadium extends ConsumerStatefulWidget {
 class _StadiumState extends ConsumerState<Stadium> {
   @override
   Widget build(BuildContext context) {
+    double width = MediaQuery.of(context).size.width;
     final stadiumId = widget.goRouterState?.pathParameters['stadiumId'];
     final stadium = stadiumId == null
         ? null
@@ -32,16 +33,48 @@ class _StadiumState extends ConsumerState<Stadium> {
         foregroundColor: Theme.of(context).colorScheme.onPrimary,
       ),
       body: Center(
-        child: stadium == null
-            ? const Text('Stadium was not found')
-            : Column(
-                children: [
-                  StadiumCard(stadium: stadium),
-                  WeatherCard(
-                    weather: weather,
-                  ),
-                ],
-              ),
+        child: Container(
+          // constraints: const BoxConstraints(maxWidth: 600),
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            children: [
+              stadium == null
+                  ? const Text('Stadium was not found')
+                  : Card(
+                      child: Padding(
+                        padding: const EdgeInsets.all(16.0),
+                        child: width > 600
+                            ? Row(
+                                mainAxisSize: MainAxisSize.min,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.only(right: 40.0),
+                                    child: WeatherCard(
+                                      weather: weather,
+                                    ),
+                                  ),
+                                  StadiumCard(stadium: stadium),
+                                ],
+                              )
+                            : Column(
+                                children: [
+                                  Padding(
+                                    padding:
+                                        const EdgeInsets.only(bottom: 16.0),
+                                    child: StadiumCard(stadium: stadium),
+                                  ),
+                                  WeatherCard(
+                                    weather: weather,
+                                  ),
+                                ],
+                              ),
+                      ),
+                    ),
+            ],
+          ),
+        ),
       ),
     );
   }

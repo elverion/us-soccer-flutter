@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:us_soccer_flutter/modules/location/widgets/location_block.widget.dart';
+import 'package:us_soccer_flutter/modules/location/widgets/location_text.widget.dart';
 
 import '../models/stadium.model.dart';
 
@@ -12,11 +12,17 @@ class StadiumCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
+    return SizedBox(
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(stadium.stadium),
-          LocationBlock(location: stadium.location),
+          Text(
+            stadium.stadium,
+            style:
+                const TextStyle(fontSize: 30, overflow: TextOverflow.ellipsis),
+          ),
+          LocationText(location: stadium.location),
         ],
       ),
     );

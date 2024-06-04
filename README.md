@@ -1,21 +1,21 @@
 # us_soccer_flutter
 
-A new Flutter project.
+A demo application to showcase functionality of the `elverion/us-soccer-go` repository.
 
-# Web without https endpoint
+## Web without https endpoint
+When using web and non-https domains, you will need to use the following command.
 ```
 flutter run -d chrome --web-browser-flag "--disable-web-security"
+```
+## Example CSV
+```
+https://github.com/jokecamp/FootballData/blob/master/other/stadiums-with-GPS-coordinates.csv
 ```
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+To get started install flutter `https://docs.flutter.dev/get-started/install?_gl=1*l0frce*_up*MQ..&gclid=Cj0KCQjw0_WyBhDMARIsAL1Vz8uXDij_vyuVljvkSMGVpd4TiZCCQbv1PUZ904NJoIBYw-YFJxz7ifwaAtruEALw_wcB&gclsrc=aw.ds`
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+```
+flutter run
+```

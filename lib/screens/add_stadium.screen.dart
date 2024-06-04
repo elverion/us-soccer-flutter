@@ -73,6 +73,7 @@ class _AddStadiumState extends ConsumerState<AddStadium> {
     setState(() {
       isLoading = true;
       localFile = null;
+      csvFile = null;
     });
   }
 
@@ -110,9 +111,6 @@ class _AddStadiumState extends ConsumerState<AddStadium> {
                               kIsWeb
                                   ? const SizedBox()
                                   : Text('${localFile?.files.single.path}'),
-                              // kIsWeb
-                              //     ? Text('${localFile?.files.single.bytes}')
-                              //     : const SizedBox(),
                             ],
                           ),
                         ),
@@ -120,10 +118,22 @@ class _AddStadiumState extends ConsumerState<AddStadium> {
                     )
                   : const SizedBox(height: 100),
               ElevatedButton(
-                onPressed: () => {
-                  if (csvFile != null)
-                    ref.read(stadiumProvider.notifier).uploadCSV(csvFile!)
+                onPressed: () async {
+                  if (csvFile != null) {
+                    final result = await ref
+                        .read(stadiumProvider.notifier)
+                        .uploadCSV(csvFile!);
+                    _resetState();
+                  }
                 },
+                style: ButtonStyle(
+                  backgroundColor: WidgetStatePropertyAll<Color>(
+                    Theme.of(context).primaryColor,
+                  ),
+                  foregroundColor: WidgetStatePropertyAll<Color>(
+                    Theme.of(context).colorScheme.onPrimary,
+                  ),
+                ),
                 child: const Text('Submit'),
               ),
             ],

@@ -47,6 +47,7 @@ class MyApp extends ConsumerWidget {
         theme: ThemeData(
           primaryColor: const Color.fromARGB(255, 33, 40, 68),
           secondaryHeaderColor: const Color.fromARGB(255, 179, 25, 66),
+          scaffoldBackgroundColor: const Color.fromARGB(255, 225, 225, 225),
           colorScheme: ColorScheme.fromSeed(
             seedColor: const Color.fromARGB(255, 33, 40, 68),
             primary: const Color.fromARGB(255, 33, 40, 68),
