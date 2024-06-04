@@ -89,13 +89,10 @@ class _AddStadiumState extends ConsumerState<AddStadium> {
         child: SingleChildScrollView(
           child: Column(
             children: [
-              Padding(
-                padding: const EdgeInsets.only(bottom: 16),
-                child: ElevatedButton.icon(
-                  icon: const Icon(Icons.description),
-                  label: const Text('Select CSV'),
-                  onPressed: () => _pickFiles(),
-                ),
+              ElevatedButton.icon(
+                icon: const Icon(Icons.description),
+                label: const Text('Select CSV'),
+                onPressed: () => _pickFiles(),
               ),
               localFile != null
                   ? Container(
@@ -105,13 +102,17 @@ class _AddStadiumState extends ConsumerState<AddStadium> {
                       ),
                       child: SingleChildScrollView(
                         child: Card(
-                          child: Column(
-                            children: [
-                              Text('${localFile?.files.single.name}'),
-                              kIsWeb
-                                  ? const SizedBox()
-                                  : Text('${localFile?.files.single.path}'),
-                            ],
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text('${localFile?.files.single.name}'),
+                                kIsWeb
+                                    ? const SizedBox()
+                                    : Text('${localFile?.files.single.path}'),
+                              ],
+                            ),
                           ),
                         ),
                       ),
@@ -119,16 +120,34 @@ class _AddStadiumState extends ConsumerState<AddStadium> {
                   : const SizedBox(height: 100),
               ElevatedButton(
                 onPressed: () async {
-                  if (csvFile != null) {
+                  if (!isLoading && csvFile != null) {
                     final result = await ref
                         .read(stadiumProvider.notifier)
                         .uploadCSV(csvFile!);
                     _resetState();
+
+                    setState(() {
+                      isLoading = false;
+                    });
+
+                    final snackBar = SnackBar(
+                      content: Text(result
+                          ? 'Stadiums added successfully'
+                          : 'An error occurred'),
+                      action: SnackBarAction(
+                        label: 'X',
+                        onPressed: () {},
+                      ),
+                    );
+
+                    ScaffoldMessenger.of(context).showSnackBar(snackBar);
                   }
                 },
                 style: ButtonStyle(
                   backgroundColor: WidgetStatePropertyAll<Color>(
-                    Theme.of(context).primaryColor,
+                    isLoading || csvFile == null
+                        ? Theme.of(context).primaryColor.withOpacity(0.5)
+                        : Theme.of(context).primaryColor,
                   ),
                   foregroundColor: WidgetStatePropertyAll<Color>(
                     Theme.of(context).colorScheme.onPrimary,
